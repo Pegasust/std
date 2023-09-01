@@ -14,11 +14,8 @@ jobs:
       - uses: actions/checkout@v3
 
       - uses: nixbuild/nix-quick-install-action@v25
-        with:
-          nix_conf: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
+      - run: nix store add-path --name source .
       - run: nix develop .#book -c mdbook build ./docs
 
       - name: Deploy
